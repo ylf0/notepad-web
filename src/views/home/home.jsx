@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import LeftBar from '@/components/leftBar/leftBar';
+import Menu from '@/components/menu/menu';
 
 import './home.less';
 
@@ -9,7 +10,10 @@ class Home extends Component {
     return (
       <div className="home">
         <LeftBar></LeftBar>
-        <h2>Home</h2>
+        <Menu></Menu>
+        <div className="content">
+          <h2>Content</h2>
+        </div>
       </div>
     )
   }
