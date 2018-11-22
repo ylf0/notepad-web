@@ -7,8 +7,18 @@
   background-color: rgb(249, 249, 249);
 
   .nav-area {
-    .iconfont {
-      margin-right: 24px;
+    .nav {
+      cursor: pointer;
+      transition: color .2s;
+      &:hover {
+        color: rgb(71, 176, 128);
+      }
+      .iconfont {
+        margin-right: 24px;
+      }
+    }
+    .active {
+      color: rgb(71, 176, 128);
     }
   }
 

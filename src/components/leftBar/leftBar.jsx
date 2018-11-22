@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 
 import './leftBar.less';
 
-const navs = [
-  { name: 'My Notes', icon: 'notepad' },
-  { name: 'Starred', icon: 'star' },
-  { name: 'Shared', icon: 'share' },
-  { name: 'Archived', icon: 'folder' },
-  { name: 'Deleted', icon: 'trash' },
-];
-
 const tags = [
   { name: 'Work', color: 'blue' },
   { name: 'Personal', color: 'orange' },
@@ -17,13 +9,40 @@ const tags = [
 ]
 
 class LeftBar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      navs : [
+        { name: 'My Notes', icon: 'notepad', selected: true },
+        { name: 'Starred', icon: 'star', selected: false },
+        { name: 'Shared', icon: 'share', selected: false },
+        { name: 'Archived', icon: 'folder', selected: false },
+        { name: 'Deleted', icon: 'trash', selected: false },
+      ],
+    }
+  }
+
+  chooseNav = (index) => {
+    const navs = this.state.navs;
+    navs.forEach((nav) => nav.selected = false);
+    navs[index].selected = true;
+    this.setState({
+      navs,
+    });
+    this.props.navClicked(navs[index].name);
+  }
+
   render() {
     return (
       <div className="left-bar">
         <div className="nav-area">
           {
-            navs.map((nav, index) => (
-              <div className="nav" key={index}>
+            this.state.navs.map((nav, index) => (
+              <div
+                className={nav.selected ? 'nav active' : 'nav'}
+                key={index}
+                onClick={this.chooseNav.bind(this, index)}>
                 <i className={`iconfont icon-${nav.icon}`}></i>
                 <span>{nav.name}</span>
               </div>

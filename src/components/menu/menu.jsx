@@ -11,7 +11,7 @@ class Menu extends Component {
           <SearchInput></SearchInput>
         </header>
         <main>
-          <h2>Menu</h2>
+          <h2>{this.props.currentNavName}</h2>
         </main>
         <footer>
           <div className="add-btn">
