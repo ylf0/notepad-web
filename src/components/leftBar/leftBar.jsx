@@ -8,6 +8,8 @@ const tags = [
   { name: 'Daily Journal', color: 'yellow' },
 ]
 
+const avatar = require('../../assets/images/avatar.jpg');
+
 class LeftBar extends Component {
 
   constructor(props) {
@@ -60,6 +62,10 @@ class LeftBar extends Component {
             ))
           }
         </div>
+        <footer>
+          <img src={ avatar } alt="avatar"/>
+          <span>{ this.props.userName }</span>
+        </footer>
       </div>
     )
   }
