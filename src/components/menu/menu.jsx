@@ -25,11 +25,15 @@ class Menu extends Component {
     }
   }
 
+  readNote = (article) => {
+    this.props.readNote(article._id);
+  }
+
   render() {
     if (this.props.hiddenMenu) return null;
     const articles = this.state.articles;
     const lists = articles.map((article) =>
-      <div className="article" key={article._id}>
+      <div className="article" key={article._id} onClick={this.readNote.bind(this, article)}>
         <span className="menu-title">{article.title}</span>
         <span className="menu-content">{article.content}</span>
       </div>

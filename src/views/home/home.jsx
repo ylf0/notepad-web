@@ -12,7 +12,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: true,
+      isLogin: false,
       user: null,
       currentNavName: 'My Notes',
       hiddenMenu: false,
@@ -21,9 +21,27 @@ class Home extends Component {
     }
   }
 
-  getCurrentUser = (user) => {
+  componentWillMount() {
+    if (localStorage.USER_ID) {
+      this.getCurrentUser(localStorage.USER_ID);
+    }
+  }
+
+  getCurrentUser = async (_id) => {
+    try {
+      const { user } = await request('GET', '/me', {
+        _id,
+      });
+      if (user) this.setState({ user, isLogin: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  handleLogin = (user) => {
     if (user.name) {
       this.setState({ user, isLogin: true });
+      localStorage.setItem('USER_ID', user._id);
     }
   }
 
@@ -78,10 +96,14 @@ class Home extends Component {
     }
   };
 
+  readNote = (id) => {
+    console.log(id);
+  }
+
   render() {
     let home = null;
     if (!this.state.isLogin) {
-      home = <Login getCurrentUser={this.getCurrentUser.bind(this)}></Login>
+      home = <Login getCurrentUser={this.handleLogin.bind(this)}></Login>
     } else {
       home = <div className="home">
               <LeftBar
@@ -91,7 +113,8 @@ class Home extends Component {
               <Menu
                 hiddenMenu={this.state.hiddenMenu}
                 currentNavName={this.state.currentNavName}
-                addNote={this.addNote.bind(this)}>
+                addNote={this.addNote.bind(this)}
+                readNote={this.readNote.bind(this)}>
               </Menu>
               <div className={this.state.hiddenMenu ? 'add-new' : 'content'}>
                 <h2>Content</h2>
