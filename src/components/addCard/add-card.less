@@ -1,0 +1,49 @@
+.add-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    padding: 10px 16px;
+
+    font-size: 20px;
+    line-height: 24px;
+    color: #383838;
+    border: none;
+    border-bottom: 1px solid #bdbdbd;
+  }
+  textarea {
+    margin-top: 20px;
+    padding: 16px;
+    height: 70vh;
+
+    font-size: 16px;
+    line-height: 20px;
+    color: #808080;
+
+    border-color: #bdbdbd;
+    border-radius: 4px;
+    resize: none;
+  }
+  input, textarea {
+    width: calc(~'100% - 40px');
+    outline: none;
+  }
+  .add-btn {
+    align-self: flex-end;
+    margin-top: 20px;
+
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+
+    background-color: #3da8f5;
+    border-radius: 4px;
+    cursor: pointer;
+
+    span {
+      font-weight: 500;
+      color: #fff;
+    }
+  }
+}
