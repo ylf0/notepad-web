@@ -16,8 +16,9 @@ class Home extends Component {
     this.state = {
       isLogin: false,
       user: null,
-      currentNavName: 'My Notes',
+      currentNav: { name: 'My Notes', type: 'all' },
       hiddenMenu: false,
+      shouldToggle: false,
       currentNoteId: '',
     }
   }
@@ -46,10 +47,17 @@ class Home extends Component {
     }
   }
 
-  navClicked = (name) => {
-    this.setState({
-      currentNavName: name,
-    });
+  navClicked = (name, type) => {
+    this.setState(function (prevState) {
+      if (type !== prevState.currentNav.type) {
+        return {
+          shouldToggle: !prevState.shouldToggle,
+          currentNav: { name, type },
+          currentNoteId: '',
+        }
+      }
+      return { currentNav: { name, type } }
+    })
   };
 
   addNote = () => {
@@ -73,7 +81,7 @@ class Home extends Component {
       const { user } = this.state;
       board = <AddCard _userId={user ? user._id : ''} showNoteMenu={this.showNoteMenu.bind(this)}/>
     } else {
-      board = <Content _id={this.state.currentNoteId}/>
+      board = <Content _id={this.state.currentNoteId} shouldToggle={this.state.shouldToggle}/>
     }
     if (!this.state.isLogin) {
       home = <Login getCurrentUser={this.handleLogin.bind(this)}></Login>
@@ -85,11 +93,12 @@ class Home extends Component {
               </LeftBar>
               <Menu
                 hiddenMenu={this.state.hiddenMenu}
-                currentNavName={this.state.currentNavName}
+                currentNav={this.state.currentNav}
+                getNoteType={this.navClicked.bind(this)}
                 addNote={this.addNote.bind(this)}
                 readNote={this.readNote.bind(this)}>
               </Menu>
-              <div className="content">
+              <div className="right-content">
                 { board }
               </div>
             </div>

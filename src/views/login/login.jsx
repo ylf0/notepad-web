@@ -50,16 +50,20 @@ class Login extends Component {
       <div className="login-page">
         <h1>登录</h1>
         <div className="login-container">
-          <input
-            type="text"
-            placeholder="用户名"
-            value={ this.state.userName }
-            onChange={ this.setName }/>
-          <input
-            type="password"
-            placeholder="密码"
-            value={ this.state.pwd }
-            onChange={ this.setPwd }/>
+          <form>
+            <input
+              type="text"
+              placeholder="用户名"
+              autoComplete="username"
+              value={ this.state.userName }
+              onChange={ this.setName }/>
+            <input
+              type="password"
+              placeholder="密码"
+              autoComplete="current-password"
+              value={ this.state.pwd }
+              onChange={ this.setPwd }/>
+          </form>
           <div className="remember-check">
             <input type="checkbox"/>
             <span>30 天内记住我</span>

@@ -8,6 +8,7 @@ class Content extends Component {
     super(props);
     this.state = {
       article: null,
+      shouldToggle: false,
     }
   }
 
@@ -15,10 +16,17 @@ class Content extends Component {
     this.getNote(nextProps);
   }
 
-  getNote = async({ _id }) => {
+  getNote = async({ _id, shouldToggle }) => {
+    if (shouldToggle !== this.state.shouldToggle) {
+      this.setState({
+        article: null,
+        shouldToggle,
+      });
+      return;
+    }
     if (!_id) return;
     try {
-      const { articles } = await request('GET', '/article', {
+      const { articles } = await request('GET', '/article/all', {
         _id,
       });
       this.setState({ article: articles });
@@ -29,6 +37,7 @@ class Content extends Component {
 
   render() {
     const { article } = this.state;
+
     return (
       <div className="content-area">
         <span className="title">{ article ? article.title : 'No Title' }</span>

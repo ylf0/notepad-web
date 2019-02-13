@@ -13,12 +13,12 @@ class Menu extends Component {
   }
 
   componentWillMount() {
-    this.getNotes();
+    this.getNotes('all');
   };
 
-  getNotes = async () => {
+  getNotes = async (type) => {
     try {
-      const { articles } = await request('GET', '/article');
+      const { articles } = await request('GET', `/article/${type}`);
       this.setState({ articles });
     } catch (err) {
       console.log(err);
@@ -32,6 +32,8 @@ class Menu extends Component {
   render() {
     if (this.props.hiddenMenu) return null;
     const articles = this.state.articles;
+    const type = this.props.currentNav.type;
+    this.getNotes(type);
     const lists = articles.map((article) =>
       <div className="article" key={article._id} onClick={this.readNote.bind(this, article)}>
         <span className="menu-title">{article.title}</span>
@@ -44,7 +46,9 @@ class Menu extends Component {
           <SearchInput></SearchInput>
         </header>
         <main>
-          <h2>{this.props.currentNavName}</h2>
+          <div className="header">
+            <h2>{this.props.currentNav.name}</h2>
+          </div>
           <div className="article-lists">
             {lists}
           </div>

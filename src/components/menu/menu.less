@@ -15,18 +15,28 @@
     height: 112px;
 
     background-color: #fbfbfb;
+    z-index: 1;
   }
 
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 128px;
-    h2 {
-      text-align: center;
+
+    position: relative;
+    margin-top: 112px;
+    .header {
+      position: fixed;
+      width: 372px;
+
+      background-color: rgba(251, 251, 251, .9);
+      z-index: 1;
+      h2 {
+        text-align: center;
+      }
     }
-    .artcile-lists {
-      margin-bottom: 100px;
+    .article-lists {
+      margin: 68px 0 100px 0;
     }
     .article {
       margin-top: 8px;

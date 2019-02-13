@@ -16,11 +16,11 @@ class LeftBar extends Component {
     super(props);
     this.state = {
       navs : [
-        { name: 'My Notes', icon: 'notepad', selected: true },
-        { name: 'Starred', icon: 'star', selected: false },
-        { name: 'Shared', icon: 'share', selected: false },
-        { name: 'Archived', icon: 'folder', selected: false },
-        { name: 'Deleted', icon: 'trash', selected: false },
+        { name: 'My Notes', type: 'all', icon: 'notepad', selected: true },
+        { name: 'Starred', type: 'star', icon: 'star', selected: false },
+        { name: 'Shared', type: 'share', icon: 'share', selected: false },
+        { name: 'Archived', type: 'archived', icon: 'folder', selected: false },
+        { name: 'Deleted', type: 'deleted', icon: 'trash', selected: false },
       ],
     }
   }
@@ -32,7 +32,7 @@ class LeftBar extends Component {
     this.setState({
       navs,
     });
-    this.props.navClicked(navs[index].name);
+    this.props.navClicked(navs[index].name, navs[index].type);
   }
 
   render() {
