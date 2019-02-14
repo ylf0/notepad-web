@@ -53,6 +53,30 @@ class AddCard extends Component {
     }
   };
 
+  makeExpandingArea = (el) => {
+    if (el.addEventListener) {
+      el.addEventListener('input', () => this.setStyle(el), false);
+      this.setStyle(el);
+    } else if (el.attachEvent) {
+      el.attachEvent('onpropertychange', () => this.setStyle(el), false);
+      this.setStyle(el);
+    }
+  }
+
+  setStyle = (el) => {
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight}px`;
+    console.log('scrollHeight: ', el.scrollHeight);
+  }
+
+  delayedResize = (el) => {
+    setTimeout(() => this.setStyle(el), 0);
+  }
+
+  componentDidMount() {
+    this.makeExpandingArea(document.getElementById('editor'));
+  }
+
   render() {
     return (
       <div className="add-card">
@@ -62,6 +86,7 @@ class AddCard extends Component {
           value={this.state.title}
           onChange={this.setTitle.bind(this)}/>
         <textarea
+          id="editor"
           placeholder="写点什么..."
           value={this.state.content}
           onChange={this.setContent.bind(this)}/>
