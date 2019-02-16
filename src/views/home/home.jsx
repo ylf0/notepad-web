@@ -19,6 +19,7 @@ class Home extends Component {
       currentNav: { name: 'My Notes', type: 'all' },
       hiddenMenu: false,
       shouldToggle: false,
+      expandPanel: false,
       currentNoteId: '',
     }
   }
@@ -74,6 +75,12 @@ class Home extends Component {
     this.setState({ hiddenMenu: false });
   }
 
+  expandPanel = () => {
+    this.setState(prevState => ({
+      expandPanel: !prevState.expandPanel,
+    }));
+  }
+
   render() {
     let home = null;
     let board = null;
@@ -81,7 +88,10 @@ class Home extends Component {
       const { user } = this.state;
       board = <AddCard _userId={user ? user._id : ''} showNoteMenu={this.showNoteMenu.bind(this)}/>
     } else {
-      board = <Content _id={this.state.currentNoteId} shouldToggle={this.state.shouldToggle}/>
+      board = <Content
+                _id={this.state.currentNoteId}
+                shouldToggle={this.state.shouldToggle}
+                expandPanel={this.expandPanel.bind(this)}/>
     }
     if (!this.state.isLogin) {
       home = <Login getCurrentUser={this.handleLogin.bind(this)}></Login>
@@ -94,6 +104,7 @@ class Home extends Component {
               <Menu
                 hiddenMenu={this.state.hiddenMenu}
                 currentNav={this.state.currentNav}
+                shouldShrink={this.state.expandPanel}
                 getNoteType={this.navClicked.bind(this)}
                 addNote={this.addNote.bind(this)}
                 readNote={this.readNote.bind(this)}>

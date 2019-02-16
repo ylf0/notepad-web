@@ -30,16 +30,23 @@ class Menu extends Component {
   }
 
   render() {
-    if (this.props.hiddenMenu) return null;
-    const articles = this.state.articles;
-    const type = this.props.currentNav.type;
-    this.getNotes(type);
-    const lists = articles.map((article) =>
-      <div className="article" key={article._id} onClick={this.readNote.bind(this, article)}>
-        <span className="menu-title">{article.title}</span>
-        <span className="menu-content">{article.content}</span>
-      </div>
-    )
+    const { hiddenMenu, shouldShrink, currentNav } = this.props;
+    let lists = [];
+
+    if (hiddenMenu || shouldShrink) return null;
+
+    if (!shouldShrink) {
+      const type = currentNav.type;
+      this.getNotes(type);
+      const articles = this.state.articles;
+      lists = articles.map((article) =>
+        <div className="article" key={article._id} onClick={this.readNote.bind(this, article)}>
+          <span className="menu-title">{article.title}</span>
+          <span className="menu-content">{article.content}</span>
+        </div>
+      )
+    }
+
     return (
       <div className="menu">
         <header>
@@ -55,7 +62,7 @@ class Menu extends Component {
         </main>
         <footer>
           <div className="add-btn">
-            <span onClick={ this.props.addNote }>Add a Note</span>
+            <span onClick={ this.props.addNote }>添加笔记</span>
           </div>
         </footer>
       </div>

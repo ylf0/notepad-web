@@ -9,6 +9,7 @@ class Content extends Component {
     this.state = {
       article: null,
       shouldToggle: false,
+      shouldExpand: false,
     }
   }
 
@@ -35,13 +36,26 @@ class Content extends Component {
     }
   }
 
+  expandPanel = () => {
+    this.props.expandPanel();
+    this.setState(prevState => ({
+      shouldExpand: !prevState.shouldExpand
+    }));
+  }
+
   render() {
-    const { article } = this.state;
+    const { article, shouldExpand } = this.state;
 
     return (
-      <div className="content-area">
-        <span className="title">{ article ? article.title : 'No Title' }</span>
-        <p className="content">{ article ? article.content : 'No Content' }</p>
+      <div className="panel">
+        <div className="operation">
+          <div></div>
+          <div className="spread-btn" onClick={this.expandPanel}>{shouldExpand ? '关' : '开'}</div>
+        </div>
+        <div className="content-area">
+          <span className="title">{ article ? article.title : 'No Title' }</span>
+          <p className="content">{ article ? article.content : 'No Content' }</p>
+        </div>
       </div>
     )
   }
