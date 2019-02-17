@@ -5,15 +5,54 @@
 
     padding: 12px 24px;
     padding-bottom: 0;
+    .common {
+      position: relative;
+
+      border: 1px solid #2dbe60;
+      border-radius: 4px;
+
+      transition: all .28s;
+      cursor: pointer;
+    }
     .spread-btn {
       padding: 5px 6px;
       width: 16px;
       height: 16px;
 
-      border: 1px solid #2dbe60;
-      border-radius: 4px;
+      &:hover {
+        background-color: #2dbe60;
+        .icon-expand {
+          color: #fff;
+        }
+      }
+      .icon-expand {
+        position: absolute;
+        top: 2px;
+        left: 4px;
 
-      cursor: pointer;
+        font-size: 21px;
+        color: #2dbe60;
+
+        transition: color .28s;
+      }
+    }
+    .done-btn {
+      padding: 0 15px;
+      height: 28px;
+      line-height: 28px;
+      background-color: #2dbe60;
+
+      &:hover {
+        background-color: #28a955;
+        border-color: #28a955;
+      }
+
+      span {
+        font-family: gotham, helvetica, arial, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #fff;
+      }
     }
   }
   .content-area {

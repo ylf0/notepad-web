@@ -21,13 +21,9 @@ class Menu extends Component {
   getNotes = async (type) => {
     try {
       const { articles } = await request('GET', `/article/${type}`);
+      this.currentSelectedIndex = 0;
 
-      // 添加标记；
-      if (articles && articles.length) {
-        articles.forEach((article) => {
-          article.selected = false;
-        });
-      }
+      if (articles.length) this.props.readNote(articles[0]._id);
 
       this.setState({ articles, currentNavType: type });
     } catch (err) {
@@ -35,16 +31,11 @@ class Menu extends Component {
     }
   }
 
-  readNote = (article) => {
+  readNote = (article, index) => {
     if (!article.selected) {
-      this.clearTags();
-      article.selected = true;
+      this.currentSelectedIndex = index;
     }
     this.props.readNote(article._id);
-  }
-
-  clearTags = () => {
-
   }
 
   render() {
@@ -58,8 +49,11 @@ class Menu extends Component {
       const { currentNavType } = this.state;
       if (currentNavType !== type) this.getNotes(type);
       const articles = this.state.articles;
-      lists = articles.map((article) =>
-        <div className="article" key={article._id} onClick={this.readNote.bind(this, article)}>
+      lists = articles.map((article, index) =>
+        <div
+          className={index === this.currentSelectedIndex ? "article active" : "article"}
+          key={article._id}
+          onClick={this.readNote.bind(this, article, index)}>
           <span className="menu-title">{article.title}</span>
           <span className="menu-content">{article.content}</span>
         </div>

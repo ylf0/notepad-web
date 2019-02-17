@@ -45,12 +45,21 @@ class Content extends Component {
 
   render() {
     const { article, shouldExpand } = this.state;
+    let spreadContent = null;
+
+    if (shouldExpand) {
+      spreadContent = <span>完成</span>;
+    } else {
+      spreadContent = <i className="iconfont icon-expand"></i>;
+    }
 
     return (
       <div className="panel">
         <div className="operation">
           <div></div>
-          <div className="spread-btn" onClick={this.expandPanel}>{shouldExpand ? '关' : '开'}</div>
+          <div className={shouldExpand ? "common done-btn" : "common spread-btn"} onClick={this.expandPanel}>
+            {spreadContent}
+          </div>
         </div>
         <div className="content-area">
           <span className="title">{ article ? article.title : 'No Title' }</span>

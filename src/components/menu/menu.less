@@ -42,12 +42,15 @@
       margin-top: 8px;
       padding: 16px;
       width: 316px;
+
+      border: 1px solid transparent;
       border-radius: 4px;
 
       cursor: pointer;
       transition: all .28s;
       &:hover {
-        background-color: #fff;
+        color: #fff;
+        background-color: #2dbe60;
         box-shadow: 0 6px 12px rgba(56, 56, 56, .1);
       }
       .menu-title {
@@ -70,7 +73,7 @@
       }
     }
     .active {
-      background-color: orange;
+      border: 1px dashed #2dbe60;
     }
   }
 
