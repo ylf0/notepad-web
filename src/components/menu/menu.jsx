@@ -8,25 +8,43 @@ class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentNavType: '',
       articles: [],
     }
   }
 
   componentWillMount() {
     this.getNotes('all');
+    this.setState({ currentNavType: 'all' });
   };
 
   getNotes = async (type) => {
     try {
       const { articles } = await request('GET', `/article/${type}`);
-      this.setState({ articles });
+
+      // 添加标记；
+      if (articles && articles.length) {
+        articles.forEach((article) => {
+          article.selected = false;
+        });
+      }
+
+      this.setState({ articles, currentNavType: type });
     } catch (err) {
       console.log(err);
     }
   }
 
   readNote = (article) => {
+    if (!article.selected) {
+      this.clearTags();
+      article.selected = true;
+    }
     this.props.readNote(article._id);
+  }
+
+  clearTags = () => {
+
   }
 
   render() {
@@ -37,7 +55,8 @@ class Menu extends Component {
 
     if (!shouldShrink) {
       const type = currentNav.type;
-      this.getNotes(type);
+      const { currentNavType } = this.state;
+      if (currentNavType !== type) this.getNotes(type);
       const articles = this.state.articles;
       lists = articles.map((article) =>
         <div className="article" key={article._id} onClick={this.readNote.bind(this, article)}>
