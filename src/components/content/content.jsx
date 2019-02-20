@@ -43,6 +43,16 @@ class Content extends Component {
     }));
   }
 
+  componentWillUpdate() {
+    const contentArea = document.getElementById('content');
+    const { article } = this.state;
+    if (article && article.content) {
+      contentArea.innerText = article.content;
+    } else {
+      contentArea.innerText = 'Start Writing...';
+    }
+  }
+
   render() {
     const { article, shouldExpand } = this.state;
     let spreadContent = null;
@@ -63,7 +73,7 @@ class Content extends Component {
         </div>
         <div className="content-area">
           <span className="title">{ article ? article.title : 'No Title' }</span>
-          <p className="content">{ article ? article.content : 'No Content' }</p>
+          <pre id="content" className="content" contentEditable="true"></pre>
         </div>
       </div>
     )

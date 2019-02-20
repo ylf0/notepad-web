@@ -43,11 +43,6 @@ class AddCard extends Component {
       });
 
       this.props.showNoteMenu();
-
-      this.setState({
-        title: '',
-        content: '',
-      });
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +65,7 @@ class AddCard extends Component {
   }
 
   delayedResize = (el) => {
-    setTimeout(() => this.setStyle(el), 0);
+    setTimeout(() => this.setStyle(el), 100);
   }
 
   componentDidMount() {
