@@ -36,14 +36,25 @@ class Content extends Component {
     }
   }
 
-  expandPanel = () => {
-    this.props.expandPanel();
-    this.setState(prevState => ({
-      shouldExpand: !prevState.shouldExpand
-    }));
+  expandPanel = async () => {
+    try {
+      const { shouldExpand, article } = this.state
+      const target = document.getElementById('content')
+      if (shouldExpand) {
+        await request('POST', `/article/${article._id}`, {}, {
+          content: target.innerText
+        })
+      }
+      this.props.expandPanel();
+      this.setState(prevState => ({
+        shouldExpand: !prevState.shouldExpand
+      }));
+    } catch (err) {
+      console.log('error: ', err)
+    }
   }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     const contentArea = document.getElementById('content');
     const { article } = this.state;
     if (article && article.content) {
