@@ -38,6 +38,22 @@ class Menu extends Component {
     this.props.readNote(article._id);
   }
 
+  dragEnter = (e) => {
+    if (e.target) {
+      e.currentTarget.style.backgroundColor = '#3da8f5'
+    }
+  }
+
+  dragLeave = (e) => {
+    if (e.relatedTarget) {
+      if (!e.relatedTarget.parentNode.className.includes('article')) {
+        e.target.style.backgroundColor = ''
+      }
+    } else if (e.target) {
+      e.target.style.backgroundColor = ''
+    }
+  }
+
   render() {
     const { hiddenMenu, shouldShrink, currentNav } = this.props;
     let lists = [];
@@ -53,9 +69,12 @@ class Menu extends Component {
         <div
           className={index === this.currentSelectedIndex ? "article active" : "article"}
           key={article._id}
-          onClick={this.readNote.bind(this, article, index)}>
+          draggable={true}
+          onClick={this.readNote.bind(this, article, index)}
+          onDragEnter={this.dragEnter}
+          onDragLeave={this.dragLeave}>
           <span className="menu-title">{article.title}</span>
-          <span className="menu-content">{article.content}</span>
+          <pre className="menu-content">{article.content}</pre>
         </div>
       )
     }

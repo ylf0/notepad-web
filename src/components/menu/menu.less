@@ -52,6 +52,9 @@
         color: #fff;
         background-color: #2dbe60;
         box-shadow: 0 6px 12px rgba(56, 56, 56, .1);
+        .menu-content {
+          color: #fff;
+        }
       }
       .menu-title {
         -webkit-line-clamp: 2;
@@ -62,7 +65,13 @@
       .menu-content {
         margin-top: 6px;
         -webkit-line-clamp: 3;
+
         line-height: 18px;
+        font-family: inherit;
+        color: #878787;
+        white-space: pre-wrap;
+
+        transition: color .28s;
       }
       .menu-title, .menu-content {
         display: -webkit-box;

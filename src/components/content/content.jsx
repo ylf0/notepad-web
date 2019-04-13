@@ -78,7 +78,10 @@ class Content extends Component {
       <div className="panel">
         <div className="operation">
           <div></div>
-          <div className={shouldExpand ? "common done-btn" : "common spread-btn"} onClick={this.expandPanel}>
+          <div
+            className={shouldExpand ? "common done-btn" : "common spread-btn"}
+            title={shouldExpand ? null : '展开'}
+            onClick={this.expandPanel}>
             {spreadContent}
           </div>
         </div>

@@ -55,7 +55,10 @@ class LeftBar extends Component {
           <h3>TAGS</h3>
           {
             tags.map((tag, index) => (
-              <div className="tag" key={index}>
+              <div
+                className="tag"
+                key={index}
+                draggable={true}>
                 <div className={`point ${tag.color}`}></div>
                 <span>{tag.name}</span>
               </div>
