@@ -14,6 +14,7 @@ class Menu extends Component {
   }
 
   componentWillMount() {
+    this.elementStyle = null
     this.getNotes('all');
     this.setState({ currentNavType: 'all' });
   };
@@ -39,18 +40,32 @@ class Menu extends Component {
   }
 
   dragEnter = (e) => {
-    if (e.target) {
-      e.currentTarget.style.backgroundColor = '#3da8f5'
+    if (e.currentTarget) {
+      this.elementStyle = e.currentTarget.style
+      this.elementStyle.boxShadow = '0 6px 12px rgba(56, 56, 56, 0.1)'
+    }
+  }
+
+  dragOver = (e) => {
+    e.preventDefault()
+  }
+
+  drop = (index, e) => {
+    const { dragTagNum } = this.props
+    if (e.currentTarget) {
+      console.log('dragTarget: ', dragTagNum)
+      console.log('currentTarget: ', index)
+      this.elementStyle.boxShadow = ''
+      this.elementStyle = null
     }
   }
 
   dragLeave = (e) => {
-    if (e.relatedTarget) {
-      if (!e.relatedTarget.parentNode.className.includes('article')) {
-        e.target.style.backgroundColor = ''
-      }
-    } else if (e.target) {
-      e.target.style.backgroundColor = ''
+    const relatedTarget = e.relatedTarget
+    if (relatedTarget
+        && !relatedTarget.parentNode.className.includes('article')) {
+        this.elementStyle.boxShadow = ''
+        this.elementStyle = null
     }
   }
 
@@ -72,7 +87,9 @@ class Menu extends Component {
           draggable={true}
           onClick={this.readNote.bind(this, article, index)}
           onDragEnter={this.dragEnter}
-          onDragLeave={this.dragLeave}>
+          onDragOver={this.dragOver}
+          onDragLeave={this.dragLeave}
+          onDrop={(e) => this.drop(index, e)}>
           <span className="menu-title">{article.title}</span>
           <pre className="menu-content">{article.content}</pre>
         </div>

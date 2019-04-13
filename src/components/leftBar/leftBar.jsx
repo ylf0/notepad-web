@@ -35,6 +35,16 @@ class LeftBar extends Component {
     this.props.navClicked(navs[index].name, navs[index].type);
   }
 
+  dragStart = (index, e) => {
+    e.target.style.opacity = .5
+    this.props.dragStart(index)
+  }
+
+  dragEnd = (e) => {
+    this.props.dragEnd()
+    e.target.style.opacity = ''
+  }
+
   render() {
     return (
       <div className="left-bar">
@@ -58,7 +68,9 @@ class LeftBar extends Component {
               <div
                 className="tag"
                 key={index}
-                draggable={true}>
+                draggable={true}
+                onDragStart={(e) => this.dragStart(index, e)}
+                onDragEnd={this.dragEnd}>
                 <div className={`point ${tag.color}`}></div>
                 <span>{tag.name}</span>
               </div>

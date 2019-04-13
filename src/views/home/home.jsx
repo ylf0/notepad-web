@@ -21,6 +21,7 @@ class Home extends Component {
       shouldToggle: false,
       expandPanel: false,
       currentNoteId: '',
+      dragTagNum: -1,
     }
   }
 
@@ -81,30 +82,50 @@ class Home extends Component {
     }));
   }
 
+  dragStart = (index) => {
+    this.setState({ dragTagNum: index })
+  }
+
+  dragEnd = () => {
+    this.setState({ dragTagNum: -1 })
+  }
+
   render() {
     let home = null;
     let board = null;
-    if (this.state.hiddenMenu) {
-      const { user } = this.state;
+    const {
+      hiddenMenu,
+      isLogin,
+      user,
+      shouldToggle,
+      currentNav,
+      currentNoteId,
+      expandPanel,
+      dragTagNum,
+    } = this.state
+    if (hiddenMenu) {
       board = <AddCard _userId={user ? user._id : ''} showNoteMenu={this.showNoteMenu.bind(this)}/>
     } else {
       board = <Content
-                _id={this.state.currentNoteId}
-                shouldToggle={this.state.shouldToggle}
+                _id={currentNoteId}
+                shouldToggle={shouldToggle}
                 expandPanel={this.expandPanel.bind(this)}/>
     }
-    if (!this.state.isLogin) {
+    if (!isLogin) {
       home = <Login getCurrentUser={this.handleLogin.bind(this)}></Login>
     } else {
       home = <div className="home">
               <LeftBar
-                userName={this.state.user ? this.state.user.name : 'hi'}
-                navClicked={this.navClicked.bind(this)}>
+                userName={user ? user.name : 'hi'}
+                navClicked={this.navClicked.bind(this)}
+                dragStart={this.dragStart}
+                dragEnd={this.dragEnd}>
               </LeftBar>
               <Menu
-                hiddenMenu={this.state.hiddenMenu}
-                currentNav={this.state.currentNav}
-                shouldShrink={this.state.expandPanel}
+                hiddenMenu={hiddenMenu}
+                currentNav={currentNav}
+                shouldShrink={expandPanel}
+                dragTagNum={dragTagNum}
                 getNoteType={this.navClicked.bind(this)}
                 addNote={this.addNote.bind(this)}
                 readNote={this.readNote.bind(this)}>
