@@ -19,6 +19,7 @@ class LeftBar extends Component {
         { name: '回收站', type: 'deleted', icon: 'trash', selected: false },
       ],
       tags: [],
+      showAddTagContainer: false,
     }
   }
 
@@ -51,13 +52,23 @@ class LeftBar extends Component {
     e.target.style.opacity = ''
   }
 
+  toggleAddTagContainer = (e) => {
+    this.setState(prevState => ({
+      showAddTagContainer: !prevState.showAddTagContainer,
+    }))
+  }
+
+  closeAddTagContainer = (e) => {
+    e.stopPropagation()
+    this.setState({ showAddTagContainer: false })
+  }
+
   componentDidMount() {
     this.getTags()
   }
 
-
   render() {
-    const { tags } = this.state
+    const { tags, showAddTagContainer } = this.state
     return (
       <div className="left-bar">
         <div className="nav-area">
@@ -89,10 +100,15 @@ class LeftBar extends Component {
             ))
           }
           <div className="add-tag">
-            <i className="iconfont icon-add"/>
-            <span>添加标签</span>
+            <div className="add-tag-area" onClick={this.toggleAddTagContainer}>
+              <i className="iconfont icon-add"/>
+              <span className="desc">添加标签</span>
+            </div>
+            <AddTag
+              ref="addTag"
+              showContainer={showAddTagContainer}
+              closeContainer={this.closeAddTagContainer}/>
           </div>
-          <AddTag/>
         </div>
         <footer>
           <img src={ avatar } alt="avatar"/>

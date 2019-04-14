@@ -47,22 +47,24 @@
       position: relative;
       right: 2px;
       width: fit-content;
-      cursor: pointer;
+      .add-tag-area {
+        cursor: pointer;
 
-      &:hover {
-        i, span {
-          color: #3da8f5;
+        &:hover {
+          .icon-add, .desc {
+            color: #3da8f5;
+          }
         }
       }
-      i {
+      .icon-add {
         font-size: 20px;
       }
-      span {
+      .desc {
         position: relative;
         bottom: 1px;
         margin-left: 4px;
       }
-      i, span {
+      .icon-add, .desc {
         font-family: PingFangSC;
         color: #808080;
 

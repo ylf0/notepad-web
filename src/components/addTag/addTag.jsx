@@ -8,7 +8,6 @@ class AddTag extends Component {
     this.state = {
       tageName: '',
       tagColor: '',
-      showAddContainer: false,
     }
   }
 
@@ -21,13 +20,31 @@ class AddTag extends Component {
     ))
   }
 
+  transitionEnd = (e) => {
+    const { showContainer } = this.props
+    if (!showContainer && e.propertyName === 'opacity') {
+      e.target.className = 'hidden'
+    }
+  }
+
+  componentDidMount() {
+    const container = this.refs.container
+    if (container) {
+      container.className = 'hidden'
+    }
+  }
+
+
   render() {
-    const { showAddContainer } = this.state
+    const { showContainer = false } = this.props
     return (
-      <div className={showAddContainer ? 'add-tag-container' : 'hidden'}>
+      <div
+        className={showContainer ? 'add-tag-container' : 'add-tag-container fade-out'}
+        onTransitionEnd={this.transitionEnd}
+        ref="container">
         <header>
           <span>新建标签</span>
-          <i className="iconfont icon-close"/>
+          <i className="iconfont icon-close" onClick={this.props.closeContainer}/>
         </header>
         <main>
           <input type="text" placeholder="标签名称"/>
