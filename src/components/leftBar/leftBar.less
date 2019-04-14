@@ -31,23 +31,42 @@
     .tag {
       display: flex;
       align-items: center;
+      width: fit-content;
 
       transition: opacity .28s;
       cursor: grab;
       .point {
-        margin-right: 24px;
+        margin-right: 9px;
         width: 14px;
         height: 14px;
         border-radius: 50%;
       }
-      .blue {
-        background-color: rgb(16, 67, 175);
+    }
+    .add-tag {
+      margin-top: 8px;
+      position: relative;
+      right: 2px;
+      width: fit-content;
+      cursor: pointer;
+
+      &:hover {
+        i, span {
+          color: #3da8f5;
+        }
       }
-      .orange {
-        background-color: rgb(240, 140, 38);
+      i {
+        font-size: 20px;
       }
-      .yellow {
-        background-color: rgb(248, 192, 40);
+      span {
+        position: relative;
+        bottom: 1px;
+        margin-left: 4px;
+      }
+      i, span {
+        font-family: PingFangSC;
+        color: #808080;
+
+        transition: color .28s;
       }
     }
   }

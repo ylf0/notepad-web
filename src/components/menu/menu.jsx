@@ -51,9 +51,9 @@ class Menu extends Component {
   }
 
   drop = (index, e) => {
-    const { dragTagNum } = this.props
+    const { dragTagId } = this.props
     if (e.currentTarget) {
-      console.log('dragTarget: ', dragTagNum)
+      console.log('dragTarget: ', dragTagId)
       console.log('currentTarget: ', index)
       this.elementStyle.boxShadow = ''
       this.elementStyle = null

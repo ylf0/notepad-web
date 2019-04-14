@@ -1,0 +1,84 @@
+.add-tag-container {
+  position: absolute;
+  left: 12px;
+
+  width: 248px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+
+  header {
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    i {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+
+      font-size: 18px;
+      color: #808080;
+
+      transition: color .28s;
+      cursor: pointer;
+      &:hover {
+        color: #3da8f5;
+      }
+    }
+    span {
+      font-family: PingFangSC-Medium;
+      letter-spacing: .2px;
+    }
+  }
+
+  main {
+    padding: 15px 16px 16px;
+    input {
+      padding: 8px 12px;
+      width: -webkit-fill-available;
+      line-height: 24px;
+
+      font-size: 14px;
+      color: #383838;
+      background-color: #fff;
+
+      border: 1px solid #e5e5e5;
+      border-radius: 3px;
+      outline: none;
+    }
+    .color-area {
+      ul {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        li {
+          list-style: none;
+        }
+        .color-circle {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+
+          cursor: pointer;
+        }
+      }
+    }
+    .add-btn {
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+
+      color: #fff;
+      text-align: center;
+      background-color: #3da8f5;
+      border-radius: 4px;
+
+      cursor: pointer;
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

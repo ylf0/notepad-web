@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
+import request from '../../utils/request'
+import AddTag from '../addTag/addTag'
 
 import './leftBar.less';
-
-const tags = [
-  { name: 'Work', color: 'blue' },
-  { name: 'Personal', color: 'orange' },
-  { name: 'Daily Journal', color: 'yellow' },
-]
 
 const avatar = require('../../assets/images/avatar.jpg');
 
@@ -16,12 +12,22 @@ class LeftBar extends Component {
     super(props);
     this.state = {
       navs : [
-        { name: 'My Notes', type: 'all', icon: 'notepad', selected: true },
-        { name: 'Starred', type: 'star', icon: 'star', selected: false },
-        { name: 'Shared', type: 'share', icon: 'share', selected: false },
-        { name: 'Archived', type: 'archived', icon: 'folder', selected: false },
-        { name: 'Deleted', type: 'deleted', icon: 'trash', selected: false },
+        { name: '全部', type: 'all', icon: 'notepad', selected: true },
+        { name: '收藏', type: 'star', icon: 'star', selected: false },
+        { name: '分享', type: 'share', icon: 'share', selected: false },
+        { name: '归档', type: 'archived', icon: 'folder', selected: false },
+        { name: '回收站', type: 'deleted', icon: 'trash', selected: false },
       ],
+      tags: [],
+    }
+  }
+
+  getTags = async () => {
+    try {
+      const { allTags } = await request('GET', '/tags')
+      this.setState({ tags: allTags })
+    } catch (err) {
+      console.log('err: ', err)
     }
   }
 
@@ -35,9 +41,9 @@ class LeftBar extends Component {
     this.props.navClicked(navs[index].name, navs[index].type);
   }
 
-  dragStart = (index, e) => {
+  dragStart = (tagId, e) => {
     e.target.style.opacity = .5
-    this.props.dragStart(index)
+    this.props.dragStart(tagId)
   }
 
   dragEnd = (e) => {
@@ -45,7 +51,13 @@ class LeftBar extends Component {
     e.target.style.opacity = ''
   }
 
+  componentDidMount() {
+    this.getTags()
+  }
+
+
   render() {
+    const { tags } = this.state
     return (
       <div className="left-bar">
         <div className="nav-area">
@@ -69,13 +81,18 @@ class LeftBar extends Component {
                 className="tag"
                 key={index}
                 draggable={true}
-                onDragStart={(e) => this.dragStart(index, e)}
+                onDragStart={(e) => this.dragStart(tag._id, e)}
                 onDragEnd={this.dragEnd}>
-                <div className={`point ${tag.color}`}></div>
+                <div className="point" style={{backgroundColor: tag.color}}></div>
                 <span>{tag.name}</span>
               </div>
             ))
           }
+          <div className="add-tag">
+            <i className="iconfont icon-add"/>
+            <span>添加标签</span>
+          </div>
+          <AddTag/>
         </div>
         <footer>
           <img src={ avatar } alt="avatar"/>
