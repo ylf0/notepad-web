@@ -25,26 +25,48 @@
 
   .tag-area {
     margin-top: 66px;
+    max-height: 432px;
+    overflow: auto;
     h3 {
       margin: 0;
     }
     .tag {
       display: flex;
       align-items: center;
-      width: fit-content;
+      position: relative;
 
       transition: opacity .28s;
       cursor: grab;
+      &:hover {
+        .icon-trash {
+          display: block;
+        }
+      }
       .point {
         margin-right: 9px;
         width: 14px;
         height: 14px;
         border-radius: 50%;
       }
+      span {
+        cursor: text;
+      }
+      .icon-trash {
+        display: none;
+        position: absolute;
+        top: 2px;
+        right: 16px;
+        color: #808080;
+
+        transition: color .28s;
+        cursor: pointer;
+        &:hover {
+          color: #3da8f5;
+        }
+      }
     }
     .add-tag {
       margin-top: 8px;
-      position: relative;
       right: 2px;
       width: fit-content;
       .add-tag-area {
@@ -75,7 +97,7 @@
 
   footer {
     position: absolute;
-    bottom: 42px;
+    bottom: 30px;
     display: flex;
     align-items: center;
     img {
@@ -91,6 +113,6 @@
   }
 
   .nav, .tag {
-    margin-top: 36px;
+    margin: 36px 20px 0 0;
   }
 }

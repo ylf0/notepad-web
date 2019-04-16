@@ -20,6 +20,7 @@ class LeftBar extends Component {
       ],
       tags: [],
       showAddTagContainer: false,
+      addTagTop: 0,
     }
   }
 
@@ -27,6 +28,27 @@ class LeftBar extends Component {
     try {
       const { allTags } = await request('GET', '/tags')
       this.setState({ tags: allTags })
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
+
+  addTag = async (name, color) => {
+    try {
+      await request('POST', '/tag', {}, {
+        name,
+        color,
+      })
+      this.closeAddTagContainer()
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
+
+  removeTag = async (id) => {
+    try {
+      await request('DELETE', `/tag/${id}`)
+      this.getTags()
     } catch (err) {
       console.log('err: ', err)
     }
@@ -43,6 +65,7 @@ class LeftBar extends Component {
   }
 
   dragStart = (tagId, e) => {
+    e.target.lastChild.style.display = 'none'
     e.target.style.opacity = .5
     this.props.dragStart(tagId)
   }
@@ -50,16 +73,18 @@ class LeftBar extends Component {
   dragEnd = (e) => {
     this.props.dragEnd()
     e.target.style.opacity = ''
+    e.target.lastChild.style.display = ''
   }
 
   toggleAddTagContainer = (e) => {
+    const { clientY } = e
     this.setState(prevState => ({
       showAddTagContainer: !prevState.showAddTagContainer,
+      addTagTop: clientY,
     }))
   }
 
-  closeAddTagContainer = (e) => {
-    e.stopPropagation()
+  closeAddTagContainer = () => {
     this.setState({ showAddTagContainer: false })
   }
 
@@ -68,7 +93,7 @@ class LeftBar extends Component {
   }
 
   render() {
-    const { tags, showAddTagContainer } = this.state
+    const { tags, showAddTagContainer, addTagTop } = this.state
     return (
       <div className="left-bar">
         <div className="nav-area">
@@ -96,6 +121,7 @@ class LeftBar extends Component {
                 onDragEnd={this.dragEnd}>
                 <div className="point" style={{backgroundColor: tag.color}}></div>
                 <span>{tag.name}</span>
+                <i className="iconfont icon-trash" onClick={(e) => this.removeTag(tag._id)}/>
               </div>
             ))
           }
@@ -105,8 +131,9 @@ class LeftBar extends Component {
               <span className="desc">添加标签</span>
             </div>
             <AddTag
-              ref="addTag"
               showContainer={showAddTagContainer}
+              top={addTagTop}
+              addTag={this.addTag}
               closeContainer={this.closeAddTagContainer}/>
           </div>
         </div>
