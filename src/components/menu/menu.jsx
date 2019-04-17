@@ -50,13 +50,27 @@ class Menu extends Component {
     e.preventDefault()
   }
 
-  drop = (index, e) => {
-    const { dragTagId } = this.props
-    if (e.currentTarget) {
-      console.log('dragTarget: ', dragTagId)
-      console.log('currentTarget: ', index)
-      this.elementStyle.boxShadow = ''
-      this.elementStyle = null
+  drop = async (index, e) => {
+    try {
+      const { dragTagId } = this.props
+      const { articles } = this.state
+      const { _id, tagIds = [] } = articles[index]
+
+      if (e.currentTarget) {
+        this.elementStyle.boxShadow = ''
+        this.elementStyle = null
+      }
+
+      if (tagIds.includes(dragTagId)) {
+        return
+      }
+      tagIds.push(dragTagId)
+
+      await request('POST', `/note/tag/${_id}`, {}, {
+        tagIds,
+      })
+    } catch (err) {
+      console.log('err: ', err)
     }
   }
 

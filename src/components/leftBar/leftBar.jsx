@@ -76,6 +76,25 @@ class LeftBar extends Component {
     e.target.lastChild.style.display = ''
   }
 
+  editTag = (index, e) => {
+    const { tags } = this.state
+    const { value } = e.target
+    tags[index].name = value
+    this.setState({ tags })
+  }
+
+  updateTag = async (tagId, e) => {
+    try {
+      const { value } = e.target
+      await request('POST', `/tag/${tagId}`, {}, {
+        name: value,
+        color: '#3da8f5',
+      })
+    } catch (err) {
+      console.log('err: ', err)
+    }
+  }
+
   toggleAddTagContainer = (e) => {
     const { clientY } = e
     this.setState(prevState => ({
@@ -84,7 +103,8 @@ class LeftBar extends Component {
     }))
   }
 
-  closeAddTagContainer = () => {
+  closeAddTagContainer = async () => {
+    await this.getTags()
     this.setState({ showAddTagContainer: false })
   }
 
@@ -120,8 +140,14 @@ class LeftBar extends Component {
                 onDragStart={(e) => this.dragStart(tag._id, e)}
                 onDragEnd={this.dragEnd}>
                 <div className="point" style={{backgroundColor: tag.color}}></div>
-                <span>{tag.name}</span>
-                <i className="iconfont icon-trash" onClick={(e) => this.removeTag(tag._id)}/>
+                <div className="tag-name-area">
+                  <input
+                    spellCheck={false}
+                    value={tag.name}
+                    onChange={(e) => this.editTag(index, e)}
+                    onBlur={(e) => this.updateTag(tag._id, e)}/>
+                </div>
+                <i className="iconfont icon-trash" onClick={() => this.removeTag(tag._id)}/>
               </div>
             ))
           }
