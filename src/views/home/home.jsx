@@ -21,7 +21,7 @@ class Home extends Component {
       shouldToggle: false,
       expandPanel: false,
       currentNoteId: '',
-      dragTagId: null,
+      dragTag: null,
     }
   }
 
@@ -82,12 +82,12 @@ class Home extends Component {
     }));
   }
 
-  dragStart = (tagId) => {
-    this.setState({ dragTagId: tagId })
+  dragStart = (tag) => {
+    this.setState({ dragTag: tag })
   }
 
   dragEnd = () => {
-    this.setState({ dragTagId: null })
+    this.setState({ dragTag: null })
   }
 
   render() {
@@ -101,7 +101,7 @@ class Home extends Component {
       currentNav,
       currentNoteId,
       expandPanel,
-      dragTagId,
+      dragTag,
     } = this.state
     if (hiddenMenu) {
       board = <AddCard _userId={user ? user._id : ''} showNoteMenu={this.showNoteMenu.bind(this)}/>
@@ -125,7 +125,7 @@ class Home extends Component {
                 hiddenMenu={hiddenMenu}
                 currentNav={currentNav}
                 shouldShrink={expandPanel}
-                dragTagId={dragTagId}
+                dragTag={dragTag}
                 getNoteType={this.navClicked.bind(this)}
                 addNote={this.addNote.bind(this)}
                 readNote={this.readNote.bind(this)}>

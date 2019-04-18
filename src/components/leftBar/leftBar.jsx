@@ -64,10 +64,10 @@ class LeftBar extends Component {
     this.props.navClicked(navs[index].name, navs[index].type);
   }
 
-  dragStart = (tagId, e) => {
+  dragStart = (tag, e) => {
     e.target.lastChild.style.display = 'none'
     e.target.style.opacity = .5
-    this.props.dragStart(tagId)
+    this.props.dragStart(tag)
   }
 
   dragEnd = (e) => {
@@ -137,7 +137,7 @@ class LeftBar extends Component {
                 className="tag"
                 key={index}
                 draggable={true}
-                onDragStart={(e) => this.dragStart(tag._id, e)}
+                onDragStart={(e) => this.dragStart(tag, e)}
                 onDragEnd={this.dragEnd}>
                 <div className="point" style={{backgroundColor: tag.color}}></div>
                 <div className="tag-name-area">

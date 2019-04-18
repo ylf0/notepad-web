@@ -52,22 +52,23 @@ class Menu extends Component {
 
   drop = async (index, e) => {
     try {
-      const { dragTagId } = this.props
+      const { dragTag } = this.props
       const { articles } = this.state
-      const { _id, tagIds = [] } = articles[index]
+      const { _id, tagInfo = [] } = articles[index]
 
       if (e.currentTarget) {
         this.elementStyle.boxShadow = ''
         this.elementStyle = null
       }
 
-      if (tagIds.includes(dragTagId)) {
-        return
+      if (tagInfo.length) {
+        const hasOne = tagInfo.find(tag => tag._id === dragTag._id)
+        if (hasOne) return
       }
-      tagIds.push(dragTagId)
+      tagInfo.push(dragTag)
 
       await request('POST', `/note/tag/${_id}`, {}, {
-        tagIds,
+        tagInfo,
       })
     } catch (err) {
       console.log('err: ', err)
