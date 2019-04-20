@@ -50,16 +50,29 @@
       }
       .tag-name-area {
         cursor: grab;
+        span {
+          padding: 0 6px;
+          cursor: text;
+        }
         input {
-          padding: 4px 6px;
+          display: none;
 
-          font-size: 14px;
+          padding: 4px 6px;
+          font-size: 16px;
           color: #383838;
           background-color: transparent;
 
-          border: none;
+          border: 1px solid #3da8f5;
           border-radius: 3px;
           outline: none;
+        }
+      }
+      .show-add-input {
+        span {
+          display: none;
+        }
+        input {
+          display: block;
         }
       }
       .icon-trash {
@@ -76,6 +89,7 @@
         }
       }
     }
+
     .add-tag {
       margin-top: 8px;
       right: 2px;

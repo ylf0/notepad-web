@@ -85,13 +85,22 @@ class LeftBar extends Component {
 
   updateTag = async (tagId, e) => {
     try {
-      const { value } = e.target
+      const { value, parentNode } = e.target
+      parentNode.className = 'tag-name-area'
       await request('POST', `/tag/${tagId}`, {}, {
         name: value,
         color: '#3da8f5',
       })
     } catch (err) {
       console.log('err: ', err)
+    }
+  }
+
+  toggleTagInput = (e) => {
+    const { currentTarget } = e
+    if (currentTarget) {
+      currentTarget.className = 'tag-name-area show-add-input'
+      currentTarget.lastChild.focus()
     }
   }
 
@@ -140,7 +149,8 @@ class LeftBar extends Component {
                 onDragStart={(e) => this.dragStart(tag, e)}
                 onDragEnd={this.dragEnd}>
                 <div className="point" style={{backgroundColor: tag.color}}></div>
-                <div className="tag-name-area">
+                <div className="tag-name-area" onClick={this.toggleTagInput}>
+                  <span>{tag.name}</span>
                   <input
                     spellCheck={false}
                     value={tag.name}
