@@ -51,8 +51,15 @@
       .tag-name-area {
         cursor: grab;
         span {
-          padding: 0 6px;
+          padding: 6px 8px;
+          border-radius: 3px;
+          background-color: transparent;
+
+          transition: background-color .28s;
           cursor: text;
+          &:hover {
+            background-color: #e0dede;
+          }
         }
         input {
           display: none;

@@ -27,6 +27,11 @@ class LeftBar extends Component {
   getTags = async () => {
     try {
       const { allTags } = await request('GET', '/tags')
+
+      for (const tag of allTags) {
+        tag.editName = tag.name
+      }
+
       this.setState({ tags: allTags })
     } catch (err) {
       console.log('err: ', err)
@@ -79,16 +84,27 @@ class LeftBar extends Component {
   editTag = (index, e) => {
     const { tags } = this.state
     const { value } = e.target
-    tags[index].name = value
+    tags[index].editName = value
     this.setState({ tags })
   }
 
-  updateTag = async (tagId, e) => {
+  updateTag = async (index, e) => {
     try {
-      const { value, parentNode } = e.target
+      const { tags } = this.state
+      const { _id, name, editName } = tags[index]
+      const { parentNode } = e.target
+
+      if (name === editName) {
+        parentNode.className = 'tag-name-area'
+        return
+      }
+
+      tags[index].name = editName
+      this.setState({ tags })
       parentNode.className = 'tag-name-area'
-      await request('POST', `/tag/${tagId}`, {}, {
-        name: value,
+
+      await request('POST', `/tag/${_id}`, {}, {
+        name: editName,
         color: '#3da8f5',
       })
     } catch (err) {
@@ -153,9 +169,9 @@ class LeftBar extends Component {
                   <span>{tag.name}</span>
                   <input
                     spellCheck={false}
-                    value={tag.name}
+                    value={tag.editName}
                     onChange={(e) => this.editTag(index, e)}
-                    onBlur={(e) => this.updateTag(tag._id, e)}/>
+                    onBlur={(e) => this.updateTag(index, e)}/>
                 </div>
                 <i className="iconfont icon-trash" onClick={() => this.removeTag(tag._id)}/>
               </div>
