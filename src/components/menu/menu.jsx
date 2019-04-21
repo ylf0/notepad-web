@@ -62,7 +62,7 @@ class Menu extends Component {
       }
 
       if (tagInfo.length) {
-        const hasOne = tagInfo.find(tag => tag._id === dragTag._id)
+        const hasOne = tagInfo.find(tag => tag && (tag._id === dragTag._id))
         if (hasOne) return
       }
       tagInfo.push(dragTag)
@@ -105,7 +105,14 @@ class Menu extends Component {
           onDragOver={this.dragOver}
           onDragLeave={this.dragLeave}
           onDrop={(e) => this.drop(index, e)}>
-          <span className="menu-title">{article.title}</span>
+          <div className="menu-header">
+            <span className="menu-title">{article.title}</span>
+            <div className="tag-circles">
+              {article.tagInfo.map(tag => (
+                <div className="circle" style={{backgroundColor: tag && tag.color}} key={tag ? tag._id : 0}></div>
+              ))}
+            </div>
+          </div>
           <pre className="menu-content">{article.content}</pre>
         </div>
       )

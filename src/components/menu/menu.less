@@ -6,10 +6,11 @@
   overflow-y: auto;
   background-color: rgb(251, 251, 251);
 
+  animation: fadeIn .6s;
+
   header {
     position: fixed;
     top: 0;
-    left: 273px;
 
     width: 372px;
     height: 112px;
@@ -56,11 +57,28 @@
           color: #fff;
         }
       }
+      .menu-header {
+        display: flex;
+        justify-content: space-between;
+      }
       .menu-title {
+        flex: 1;
         -webkit-line-clamp: 2;
         font-size: 18px;
         line-height: 20px;
         font-weight: 500;
+      }
+      .tag-circles {
+        margin-left: 16px;
+        .circle {
+          float: left;
+          margin-left: -6px;
+
+          width: 12px;
+          height: 12px;
+          border: 1px solid #fff;
+          border-radius: 50%;
+        }
       }
       .menu-content {
         margin-top: 6px;
@@ -88,7 +106,6 @@
 
   footer {
     position: fixed;
-    left: 273px;
     bottom: 0px;
 
     width: 372px;
@@ -114,6 +131,14 @@
         color: white;
       }
     }
+  }
+}
 
+@keyframes fadeIn {
+  0% {
+    transform: translateX(-40px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
