@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import request from '@/utils/request';
 
+import { markdown } from 'markdown'
+
 import './content.less';
 
 class Content extends Component {
@@ -58,7 +60,9 @@ class Content extends Component {
     const contentArea = document.getElementById('content');
     const { article } = this.state;
     if (article && article.content) {
-      contentArea.innerText = article.content;
+      let content = article.content
+
+      contentArea.innerHTML = markdown.toHTML(content)
     } else {
       contentArea.innerText = 'Start Writing...';
     }
