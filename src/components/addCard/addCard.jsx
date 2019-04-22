@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import request from '@/utils/request';
 
+import { markdown } from 'markdown'
+
 import './add-card.less';
 
 class AddCard extends Component {
@@ -36,10 +38,13 @@ class AddCard extends Component {
         return;
       }
 
+      const html = markdown.toHTML(content)
+
       await request('POST', '/article', {}, {
         userId,
         title,
         content,
+        html,
       });
 
       this.props.showNoteMenu();

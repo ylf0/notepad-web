@@ -43,8 +43,10 @@ class Content extends Component {
       const { shouldExpand, article } = this.state
       const target = document.getElementById('content')
       if (shouldExpand) {
+        const html = markdown.toHTML(target.innerText)
         await request('POST', `/article/${article._id}`, {}, {
-          content: target.innerText
+          content: target.innerText,
+          html,
         })
       }
       this.props.expandPanel();
@@ -58,11 +60,15 @@ class Content extends Component {
 
   componentDidUpdate() {
     const contentArea = document.getElementById('content');
-    const { article } = this.state;
-    if (article && article.content) {
-      let content = article.content
+    const { article, shouldExpand } = this.state;
+    if (article && article.html) {
+      let content = article.html
 
-      contentArea.innerHTML = markdown.toHTML(content)
+      if (shouldExpand) {
+        contentArea.innerText = article.content
+      } else {
+        contentArea.innerHTML = content
+      }
     } else {
       contentArea.innerText = 'Start Writing...';
     }
