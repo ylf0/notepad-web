@@ -69,6 +69,8 @@ class Content extends Component {
       } else {
         contentArea.innerHTML = content
       }
+
+      console.log('shouldExpand: ', shouldExpand)
     } else {
       contentArea.innerText = 'Start Writing...';
     }
