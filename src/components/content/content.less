@@ -55,10 +55,27 @@
       }
     }
   }
+  .show-border {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f3f3f3;
+  }
+  .edit-area {
+    float: left;
+    padding: 20px;
+    width: 46vw;
+
+    #edit {
+      outline: none;
+    }
+  }
   .content-area {
     display: flex;
     flex-direction: column;
     padding: 24px;
+    min-height: calc(100vh - 103px);
+
+    background-color: #fff;
+    transition: background-color .28s;
     .title {
       text-align: center;
       font-size: 28px;
@@ -78,5 +95,8 @@
 
       outline: none;
     }
+  }
+  .preview {
+    background-color: #f3f3f3;
   }
 }

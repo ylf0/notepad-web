@@ -116,6 +116,7 @@ class Home extends Component {
     } else {
       home = <div className="home">
               <LeftBar
+                shouldHidden={expandPanel}
                 userName={user ? user.name : 'hi'}
                 navClicked={this.navClicked.bind(this)}
                 dragStart={this.dragStart}

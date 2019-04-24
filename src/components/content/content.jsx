@@ -40,15 +40,15 @@ class Content extends Component {
 
   expandPanel = async () => {
     try {
-      const { shouldExpand, article } = this.state
-      const target = document.getElementById('content')
-      if (shouldExpand) {
-        const html = markdown.toHTML(target.innerText)
-        await request('POST', `/article/${article._id}`, {}, {
-          content: target.innerText,
-          html,
-        })
-      }
+      // const { shouldExpand, article } = this.state
+      // const target = document.getElementById('content')
+      // if (shouldExpand) {
+      //   const html = markdown.toHTML(target.innerText)
+      //   await request('POST', `/article/${article._id}`, {}, {
+      //     content: target.innerText,
+      //     html,
+      //   })
+      // }
       this.props.expandPanel();
       this.setState(prevState => ({
         shouldExpand: !prevState.shouldExpand
@@ -64,10 +64,11 @@ class Content extends Component {
     if (article && article.html) {
       let content = article.html
 
+      contentArea.innerHTML = content
+
       if (shouldExpand) {
-        contentArea.innerText = article.content
-      } else {
-        contentArea.innerHTML = content
+        const editArea = document.getElementById('edit')
+        editArea.innerText = article.content
       }
     } else {
       contentArea.innerText = 'Start Writing...';
@@ -86,7 +87,7 @@ class Content extends Component {
 
     return (
       <div className="panel">
-        <div className="operation">
+        <div className={shouldExpand ? "operation show-border" : "operation"}>
           <div></div>
           <div
             className={shouldExpand ? "common done-btn" : "common spread-btn"}
@@ -95,9 +96,13 @@ class Content extends Component {
             {spreadContent}
           </div>
         </div>
-        <div className="content-area">
+        <div className={shouldExpand ? "edit-area" : "hidden"}>
           <span className="title">{ article ? article.title : 'No Title' }</span>
-          <pre id="content" className="content" contentEditable="true"></pre>
+          <div id="edit" contentEditable={true}/>
+        </div>
+        <div className={shouldExpand ? "content-area preview" : "content-area"}>
+          <span className="title">{ article ? article.title : 'No Title' }</span>
+          <div id="content"/>
         </div>
       </div>
     )

@@ -139,6 +139,8 @@ class LeftBar extends Component {
 
   render() {
     const { tags, showAddTagContainer, addTagTop } = this.state
+    const { shouldHidden } = this.props
+    if (shouldHidden) return null
     return (
       <div className="left-bar">
         <div className="nav-area">
