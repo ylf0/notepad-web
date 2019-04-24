@@ -40,15 +40,16 @@ class Content extends Component {
 
   expandPanel = async () => {
     try {
-      // const { shouldExpand, article } = this.state
-      // const target = document.getElementById('content')
-      // if (shouldExpand) {
-      //   const html = markdown.toHTML(target.innerText)
-      //   await request('POST', `/article/${article._id}`, {}, {
-      //     content: target.innerText,
-      //     html,
-      //   })
-      // }
+      const { shouldExpand, article } = this.state
+      const target = document.getElementById('edit')
+      if (shouldExpand) {
+        const html = markdown.toHTML(target.innerText)
+        await request('POST', `/article/${article._id}`, {}, {
+          content: target.innerText,
+          html,
+        })
+      }
+
       this.props.expandPanel();
       this.setState(prevState => ({
         shouldExpand: !prevState.shouldExpand
@@ -60,6 +61,7 @@ class Content extends Component {
 
   componentDidUpdate() {
     const contentArea = document.getElementById('content');
+    this.contentArea = contentArea
     const { article, shouldExpand } = this.state;
     if (article && article.html) {
       let content = article.html
@@ -73,6 +75,12 @@ class Content extends Component {
     } else {
       contentArea.innerText = 'Start Writing...';
     }
+  }
+
+  updateContent = (e) => {
+    const { innerText } = e.currentTarget
+    const preview = markdown.toHTML(innerText)
+    this.contentArea.innerHTML = preview
   }
 
   render() {
@@ -98,7 +106,7 @@ class Content extends Component {
         </div>
         <div className={shouldExpand ? "edit-area" : "hidden"}>
           <span className="title">{ article ? article.title : 'No Title' }</span>
-          <div id="edit" contentEditable={true}/>
+          <div id="edit" contentEditable={true} onKeyUp={this.updateContent}/>
         </div>
         <div className={shouldExpand ? "content-area preview" : "content-area"}>
           <span className="title">{ article ? article.title : 'No Title' }</span>
