@@ -109,7 +109,11 @@ class Menu extends Component {
             <span className="menu-title">{article.title}</span>
             <div className="tag-circles">
               {article.tagInfo.map(tag => (
-                <div className="circle" style={{backgroundColor: tag && tag.color}} key={tag ? tag._id : 0}></div>
+                <div
+                  className="circle"
+                  style={{backgroundColor: tag && tag.color}}
+                  title={tag.name}
+                  key={tag ? tag._id : 0}></div>
               ))}
             </div>
           </div>
