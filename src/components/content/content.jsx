@@ -74,6 +74,11 @@ class Content extends Component {
       }
     } else {
       contentArea.innerText = 'Start Writing...';
+
+      if (shouldExpand) {
+        const editArea = document.getElementById('edit')
+        editArea.innerText = 'Start Writing...'
+      }
     }
   }
 

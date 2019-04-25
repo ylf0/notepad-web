@@ -132,9 +132,7 @@ class Menu extends Component {
           </div>
         </main>
         <footer>
-          <div className="add-btn">
-            <span onClick={ this.props.addNote }>添加笔记</span>
-          </div>
+          <span onClick={ this.props.addNote }>添加笔记</span>
         </footer>
       </div>
     )
