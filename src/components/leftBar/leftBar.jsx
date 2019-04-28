@@ -144,6 +144,10 @@ class LeftBar extends Component {
     return (
       <div className="left-bar">
         <div className="nav-area">
+          <div className="nav-desc">
+            <span>文件夹</span>
+            <i className="iconfont icon-add"/>
+          </div>
           {
             this.state.navs.map((nav, index) => (
               <div
@@ -158,6 +162,7 @@ class LeftBar extends Component {
         </div>
         <div className="tag-area">
           <h3>TAGS</h3>
+          <i className="iconfont icon-add"/>
           {
             tags.map((tag, index) => (
               <div
@@ -181,7 +186,6 @@ class LeftBar extends Component {
           }
           <div className="add-tag">
             <div className="add-tag-area" onClick={this.toggleAddTagContainer}>
-              <i className="iconfont icon-add"/>
               <span className="desc">添加标签</span>
             </div>
             <AddTag

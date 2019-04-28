@@ -8,6 +8,21 @@
   background-color: rgb(249, 249, 249);
 
   .nav-area {
+    div:nth-child(2) {
+      margin-top: 0;
+    }
+    .nav-desc {
+      position: relative;
+      margin: 36px 0 16px 0;
+      font-size: 18px;
+      font-weight: 700;
+
+      .icon-add {
+        position: absolute;
+        top: 3px;
+        right: 36px;
+      }
+    }
     .nav {
       cursor: pointer;
       transition: color .2s;
@@ -24,11 +39,17 @@
   }
 
   .tag-area {
+    position: relative;
     margin-top: 66px;
     max-height: 432px;
     overflow: auto;
     h3 {
       margin: 0;
+    }
+    .icon-add {
+      position: absolute;
+      top: 2px;
+      right: 36px;
     }
     .tag {
       display: flex;
