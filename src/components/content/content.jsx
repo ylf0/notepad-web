@@ -101,7 +101,9 @@ class Content extends Component {
     return (
       <div className="panel">
         <div className={shouldExpand ? "operation show-border" : "operation"}>
-          <div></div>
+          <div className="left">
+            <span>添加至...</span>
+          </div>
           <div
             className={shouldExpand ? "common done-btn" : "common spread-btn"}
             title={shouldExpand ? null : '展开'}

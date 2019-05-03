@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import request from '../../utils/request'
-import AddTag from '../addTag/addTag'
 
 import './leftBar.less';
 
@@ -19,8 +18,6 @@ class LeftBar extends Component {
         { name: '回收站', type: 'deleted', icon: 'trash', selected: false },
       ],
       tags: [],
-      showAddTagContainer: false,
-      addTagTop: 0,
     }
   }
 
@@ -138,7 +135,7 @@ class LeftBar extends Component {
   }
 
   render() {
-    const { tags, showAddTagContainer, addTagTop } = this.state
+    const { tags } = this.state
     const { shouldHidden } = this.props
     if (shouldHidden) return null
     return (
@@ -184,16 +181,6 @@ class LeftBar extends Component {
               </div>
             ))
           }
-          <div className="add-tag">
-            <div className="add-tag-area" onClick={this.toggleAddTagContainer}>
-              <span className="desc">添加标签</span>
-            </div>
-            <AddTag
-              showContainer={showAddTagContainer}
-              top={addTagTop}
-              addTag={this.addTag}
-              closeContainer={this.closeAddTagContainer}/>
-          </div>
         </div>
         <footer>
           <img src={ avatar } alt="avatar"/>

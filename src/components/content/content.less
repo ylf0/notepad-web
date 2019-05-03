@@ -2,9 +2,21 @@
   .operation {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     padding: 12px 24px;
     padding-bottom: 0;
+    .left {
+      span {
+        color: #2dbe60;
+
+        transition: color .28s;
+        cursor: pointer;
+        &:hover {
+          color: #2ba555;
+        }
+      }
+    }
     .common {
       position: relative;
 
@@ -115,5 +127,8 @@
   }
   .preview {
     background-color: #f3f3f3;
+  }
+  .hidden {
+    display: none;
   }
 }
