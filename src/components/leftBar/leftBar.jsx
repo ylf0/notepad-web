@@ -136,8 +136,19 @@ class LeftBar extends Component {
 
   render() {
     const { tags } = this.state
-    const { shouldHidden } = this.props
+    const { shouldHidden, shouldShrink } = this.props
     if (shouldHidden) return null
+    if (shouldShrink) {
+      return (
+        <div className="left-bar left-shrink">
+          <div className="left-content">
+            <div className="icon-area">
+              <i className="iconfont icon-text"/>
+            </div>
+          </div>
+        </div>
+      )
+    }
     return (
       <div className="left-bar">
         <div className="nav-area">
@@ -183,9 +194,9 @@ class LeftBar extends Component {
           }
         </div>
         <footer>
-          <img src={ avatar } alt="avatar"/>
-          <span>{ this.props.userName }</span>
-        </footer>
+            <img src={ avatar } alt="avatar"/>
+            <span>{ this.props.userName }</span>
+          </footer>
       </div>
     )
   }
