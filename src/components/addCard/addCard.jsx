@@ -3,7 +3,7 @@ import request from '@/utils/request';
 
 import { markdown } from 'markdown'
 
-import './add-card.less';
+import './addCard.less';
 
 class AddCard extends Component {
   constructor(props) {
@@ -74,24 +74,17 @@ class AddCard extends Component {
   }
 
   componentDidMount() {
-    this.makeExpandingArea(document.getElementById('editor'));
+    // this.makeExpandingArea(document.getElementById('editor'));
   }
 
   render() {
     return (
       <div className="add-card">
-        <input
-          type="text"
-          placeholder="标题..."
-          value={this.state.title}
-          onChange={this.setTitle.bind(this)}/>
-        <textarea
-          id="editor"
-          placeholder="写点什么..."
-          value={this.state.content}
-          onChange={this.setContent.bind(this)}/>
-        <div className="add-btn" onClick={this.submitNote.bind(this)}>
-          <span>提交</span>
+        <div className="edit-area">
+          <h2>Edit Area</h2>
+        </div>
+        <div className="preview-area">
+          <h2>Preview Area</h2>
         </div>
       </div>
     )
