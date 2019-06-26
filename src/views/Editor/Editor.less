@@ -1,0 +1,44 @@
+.operation-area {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 8px 13px;
+
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
+
+  .section {
+    padding: 0 6px;
+    height: 26px;
+    line-height: 28px;
+
+    border-right: 1px solid #ebebeb;
+    span {
+      margin: 0 2px;
+      color: #383838;
+
+      transition: color .28s;
+      cursor: pointer;
+      &:hover {
+        color: #3da8f5;
+      }
+    }
+    .italic {
+      margin-left: 12px;
+      font-style: italic;
+    }
+  }
+  .last-section {
+    border-right: none;
+  }
+}
+.editor-area {
+  padding: 16px;
+}
+.DraftEditor-root {
+  padding: 16px;
+  min-height: 86vh;
+
+  border-radius: 4px;
+  background-color: rgba(239, 236, 236, .9);
+}

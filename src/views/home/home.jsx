@@ -14,10 +14,10 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: false,
+      isLogin: true,
       user: null,
       currentNav: { name: 'My Notes', type: 'all' },
-      hiddenMenu: false,
+      hiddenMenu: true,
       shouldToggle: false,
       expandPanel: false,
       currentNoteId: '',
@@ -27,7 +27,7 @@ class Home extends Component {
 
   componentWillMount() {
     if (localStorage.USER_ID) {
-      this.getCurrentUser(localStorage.USER_ID);
+      // this.getCurrentUser(localStorage.USER_ID);
     }
   }
 
@@ -91,7 +91,7 @@ class Home extends Component {
   }
 
   render() {
-    let home = null;
+    let Home = null;
     let board = null;
     const {
       hiddenMenu,
@@ -112,9 +112,9 @@ class Home extends Component {
                 expandPanel={this.expandPanel.bind(this)}/>
     }
     if (!isLogin) {
-      home = <Login getCurrentUser={this.handleLogin.bind(this)}></Login>
+      Home = <Login getCurrentUser={this.handleLogin.bind(this)}></Login>
     } else {
-      home = <div className="home">
+      Home = <div className="home">
               <LeftBar
                 shouldHidden={expandPanel}
                 shouldShrink={hiddenMenu}
@@ -137,7 +137,7 @@ class Home extends Component {
               </div>
             </div>
     }
-    return home;
+    return Home
   }
 }
 
